@@ -1,0 +1,44 @@
+class Lienzo extends Canvas
+{
+    private randomGenerator R;
+    private int gen, nPuntos, escalaX, escalaY;
+    
+    public void dibujar(randomGenerator R, int gen, int nPuntos, int escalaX, int escalaY)
+    {
+        this.R = R;
+        this.gen = gen;
+        this.nPuntos = nPuntos;
+        this.escalaX = escalaX;
+        this.escalaY = escalaY;
+        repaint();
+    }
+    
+    public void paint(Graphics g)
+    {
+        super.paint(g);
+        for(int i=0; i<nPuntos; ++i)
+        {
+            double x_d = R.generador(gen);
+            double y_d = R.generador(gen);
+            int x = (int)Math.round(escalaX*x_d);
+            int y = (int)Math.round(escalaY*y_d);
+            //System.out.println(x + " " + y);
+            g.fillOval(x, y, 2, 2);
+        }
+    }
+}
+
+public void actionPerformed(ActionEvent e)
+            {
+                //try{
+                    R = new randomGenerator(Integer.parseInt(t1.getText()));
+                    int gen = Integer.parseInt(grupo.getSelection().getActionCommand());
+                    int nPuntos = Integer.parseInt(t2.getText());
+                    Integer escalaX = internal1.getWidth();
+                    Integer escalaY = internal1.getHeight();
+                    L.dibujar(R, gen, nPuntos, escalaX, escalaY);
+                    internal1.add(L);
+                    //JOptionPane.showMessageDialog(null, escalaX.toString()+ " " + escalaY.toString());
+                //}catch(NumberConvertException ex){}                
+            }
+            
